@@ -1,0 +1,57 @@
+<app-menu></app-menu>
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-sm-2"></div>
+    <div class="col-sm">
+        <h3 >Create Category</h3>
+      <form [formGroup]="categoryForm" (ngSubmit)="onSubmit(categoryForm.value)">
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <label for="inputEmail4">Category Name</label>
+            <input type="text" class="form-control" style="text-transform: uppercase" id="inputEmail4" formControlName="category_name" placeholder="Category Name" [ngClass]="{ 'is-invalid': f.category_name.touched && f.category_name.errors }">
+            <div *ngIf="f.category_name.touched && f.category_name.errors" class="invalid-feedback">
+                <div *ngIf="f.category_name.errors.required">Category Name is required</div>
+            </div>
+          </div>
+          <div class="form-group col-md-8">
+              <label for="inputState">Status</label>
+              <select id="inputState" class="form-control" formControlName="status">
+                <option value="">Choose...</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+          </div>
+        </div>
+        <!-- {{ categoryForm.value | json}}
+        {{ categoryForm.status}} -->
+        <button type="submit"  [disabled]="!categoryForm.valid" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-sm">
+        <h3 class="text-center"> Category List</h3>
+        <table #categoryTable class="table table-bordered" style="width:100%">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Category Name</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let category of categorys; let i =index;">
+              <td>{{i + 1}}</td>
+              <td>{{category.category_name}}</td>
+              <td>
+                  <mat-slide-toggle class="example-margin" [color]="accent" (click)="changeStatus(category.id)" [checked]="category.status"></mat-slide-toggle>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning" (click)="getNavigation('updatecategory', category.id)">Edit</button>
+                <button type="button" style="margin-left: 5px;" (click)="deleteCategory(category.id)" class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>

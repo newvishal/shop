@@ -1,0 +1,17 @@
+<app-menu></app-menu>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div style="display: block;">
+          <h3>Line</h3>
+          <chart [type]="type" [data]="data" [options]="lineChartOptions"></chart>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div style="display: block;">
+          <h3>Barchart</h3>
+          <chart [type]="barChartType" [data]="barChartData" [options]="barChartOptions"></chart>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<app-menu></app-menu>
+<div class="container-fluid">
+    <div class="row">
+          <div class="col-md-6">
+               <div style="display:block;" class="panel panel-default panel-body">
+                  <h6 class="text-semibold np-margin-bottom mt-5" style="color:blue">Line Chart</h6>
+                  <chart [type]="lineChartType" [data]="lineChartData" [options]="lineChartOptions"></chart>
+                </div> 
+          </div>
+          <div class="col-md-6">
+            <div style="display:block;" class="panel panel-default panel-body">
+               <h6 class="text-semibold np-margin-bottom mt-5" style="color:blue">Bar Chart</h6>
+               <chart [type]="barChartType" [data]="barChartData" [options]="barChartOptions"></chart>
+             </div> 
+       </div>
+    </div>
+</div>

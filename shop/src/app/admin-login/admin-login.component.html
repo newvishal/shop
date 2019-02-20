@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row no-gutter">
+    <div class="d-none d-md-flex col-md-5 col-lg-7 bg-image"></div>
+    <div class="col-md-7 col-lg-5">
+      <div class="login d-flex align-items-center py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9 col-lg-8 mx-auto">
+              <img src="https://jwt.io/img/badge-compatible.svg">
+              <h3 class="login-heading mb-4">Welcome back Admin !</h3>
+              <form [formGroup]="loginform" (ngSubmit)="onSubmit(loginform.value)">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Username </label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" autofocus aria-describedby="emailHelp" formControlName="username" placeholder="Enter username" [ngClass]="{ 'is-invalid': f.username.touched && f.username.errors }">
+                  <div *ngIf="f.username.touched && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Category Name is required</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" placeholder="Password" [ngClass]="{ 'is-invalid': f.password.touched && f.password.errors }">
+                  <div *ngIf="f.username.touched && f.username.errors" class="invalid-feedback">
+                    <div *ngIf="f.username.errors.required">Password is required</div>
+                  </div>
+                </div>
+                <!-- <p>
+                    {{ loginform.value | json}}
+                  Form Status: {{ loginform.status }}
+                </p> -->
+                <button type="submit" [disabled]="!loginform.valid" class="btn btn-primary">Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

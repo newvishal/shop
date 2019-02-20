@@ -1,0 +1,128 @@
+<app-menu></app-menu>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4">
+        <h1 class="display-4">Add product
+        </h1>
+        <form [formGroup]="addProductForm" (ngSubmit)="onSubmit(addProductForm.value)" >
+            <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputState">Product Category</label>
+                        <select id="inputState" class="form-control" formControlName="category_id" [ngClass]="{ 'is-invalid': f.category_id.touched && f.category_id.errors }">
+                            <option value="" selected>choose...</option>
+                            <option *ngFor="let getOne of allCategoryName" [value]="getOne.id"> {{getOne.category_name}} </option>
+                        </select>
+                        <div *ngIf="f.category_id.submitted && f.category_id.errors" class="invalid-feedback">
+                            <div *ngIf="f.category_id.errors.required">Category Name required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label for="inputEmail4">Product Name</label>
+                      <input type="text" class="form-control" id="" placeholder="Ex.Food" formControlName="product_name" [ngClass]="{ 'is-invalid': f.product_name.touched && f.product_name.errors }">
+                      <div *ngIf="f.product_name.touched && f.product_name.errors" class="invalid-feedback">
+                          <div *ngIf="f.product_name.errors.required">Product Name required</div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Rate</label>
+                      <input type="number" class="form-control" id="" placeholder="Rs.50" formControlName="price" [ngClass]="{ 'is-invalid': f.price.touched && f.price.errors }">
+                      <div *ngIf="f.price.touched && f.price.errors" class="invalid-feedback">
+                          <div *ngIf="f.price.errors.required">Rate required</div>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Quantity</label>
+                      <input type="number" class="form-control" id="" placeholder="50" formControlName="quantity" [ngClass]="{ 'is-invalid': f.quantity.touched && f.quantity.errors }">
+                      <div *ngIf="f.quantity.touched && f.quantity.errors" class="invalid-feedback">
+                          <div *ngIf="f.quantity.errors.required">Quantity required</div>
+                      </div>
+                    </div>
+                    <label for="inputPassword4">Image</label>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile" (change)="onFileChange($event)" formControlName="product_img" multiple="">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    
+            </div>
+             <!-- {{ addProductForm.value | json}}
+        {{ addProductForm.status}}
+        {{allCategoryName}} -->
+         <button type="submit" [disabled]="!addProductForm.valid" class="btn btn-primary mt-3">Add</button>
+         <div class="pt-5">
+                <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let image of images | paginate: { itemsPerPage: 10, currentPage: p } ;let i = index">
+                            <th scope="row">{{ i+ 1}}</th>
+                            <td><img  [src]="image.url" class="img-thumbnail" style="width:150px;height:100px;"></td>
+                            <td>{{ image.size}}</td>
+                            <td>{{ image.type}}</td>
+                            <td><a href="javascript:void(0)" (click)="deleteImg(image)"><i class="far fa-trash-alt"></i> </a></td>
+                          </tr>
+                        </tbody>
+                </table>
+                <pagination-controls (pageChange)="p = $event" style="float:right"></pagination-controls>
+        </div>
+        </form>
+    </div>
+    <div class="col-sm-8">
+        <h1 class="display-4">Product List
+        </h1>
+        <table #productTable class="table table-bordered" style="width:100%">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Category Name</th>
+              <th>Product Name</th>
+              <!-- <th>Image</th> -->
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Remain</th>
+              <th>Sale</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of products; let i =index;">
+                <td>{{i + 1}}</td>
+                <td>{{product.category_name}}</td>
+                <td>{{product.product_name}}</td>
+                <!-- <td><img src="../../../../backend/productimage/12345678.jpg" class="img-thumbnail" style="width:110px;height:100px;"></td> -->
+                <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+                <td>{{product.totalRemain}}</td>
+                <td>{{product.totalsale}}</td>
+                <!-- <td>
+                    <mat-slide-toggle class="example-margin" [color]="accent" (click)="changeStatus(category.id)" [checked]="category.status"></mat-slide-toggle>
+                </td> -->
+                <td>
+                    <!-- <button type="button" class="btn btn-warning" (click)="getNavigation('updatecategory', category.id)">Edit</button> -->
+                    <button type="button" style="margin-left: 5px;" (click)="deleteProduct(product.id)" class="btn btn-danger">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                  <th>#</th>
+                  <th>Category Name</th>
+                  <th>Product Name</th>
+                  <!-- <th>Image</th> -->
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Remain</th>
+                  <th>Sale</th>
+                  <th>Action</th>
+                </tr>
+                </tfoot>
+          </table>
+    </div>
+  </div>
+</div>
